@@ -10,7 +10,6 @@ socket.setdefaulttimeout(5.0)
 
 # Global Variables
 running = True
-debug = False
 connected = False
 RPC = None
 prevGameName = None
@@ -21,21 +20,13 @@ logo = b'''iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAm
 tray = sg.SystemTray(menu=menu_def, data_base64=logo, tooltip="MCP Discord RPC")
 
 # Set Discord connection info
-if debug is True:
-    addr = "http://" + "192.168.50.106" + "/api/currentState"
-    client_id = 833541435281375273
-    refresh_delay = 5
-    wait_on_fail = 2
-    default_image = "ps1logo"
-    RPC = Presence(client_id, pipe=0)
-else:
-    configParser.read(os.getcwd() + "//config.txt")
-    addr = "http://" + configParser.get('config', 'mcp_local_ip') + "/api/currentState"
-    client_id = configParser.get('config', 'client_id')
-    refresh_delay = int(configParser.get('config', 'refresh_delay'))
-    wait_on_fail = int(configParser.get('config', 'wait_on_fail'))
-    default_image = configParser.get('config', 'default_image')
-    RPC = Presence(client_id, pipe=0)
+configParser.read(os.getcwd() + "//config.txt")
+addr = "http://" + configParser.get('config', 'mcp_local_ip') + "/api/currentState"
+client_id = configParser.get('config', 'client_id')
+refresh_delay = int(configParser.get('config', 'refresh_delay'))
+wait_on_fail = int(configParser.get('config', 'wait_on_fail'))
+default_image = configParser.get('config', 'default_image')
+RPC = Presence(client_id, pipe=0)
 
 
 # Discord Presence
