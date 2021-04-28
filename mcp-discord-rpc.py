@@ -12,7 +12,7 @@ socket.setdefaulttimeout(5.0)
 running = True
 connected = False
 RPC = None
-prevGameName = None
+prevGameName = "No game currently running"
 
 # Systemtray setup
 menu_def = ['MemcardPro', ['Click icon to refesh current game info on system tray.', 'Game info on Discord refeshes automatically.', '---', 'Exit']]
@@ -75,6 +75,7 @@ def memwhile():
             if connected is True:
                 RPC.close()
             connected = False
+            prevGameName = "No game currently running"
             print('Connection failed, trying again in ' + str(wait_on_fail) + ' seconds...')
             for i in range(wait_on_fail):
                 if running is False:
